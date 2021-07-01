@@ -1,61 +1,69 @@
-const diasSemana = [
-  "Domingo",
-  "Lunes",
-  "Martes",
-  "Miércoles",
-  "Jueves",
-  "Viernes",
-  "Sábado",
-];
+let startButton = document.getElementById("start");
+startButton.addEventListener("click", startGame, false);
 
-class Oferta {
-  constructor(nombre, dias, porcentaje) {
-    this.nombre = nombre;
-    this.dias = dias;
-    this.porcentaje = parseFloat(porcentaje / 100);
+//creamos el tablero
+function board(size) {
+  let tablero = "<div>\n";
+
+  for (let row = 0; row < size; row++) {
+    tablero += '<div class="boardRow"> \n';
+    for (let col = 0; col < size; col++) {
+      tablero +=
+        '<div class="boardSection" id=' + row + "-" + col + "></div>\n";
+    }
+    tablero += "</div>\n";
   }
+  return tablero + "</div>";
 }
-//Ofertas de distintos lugares
-const comunidad = new Oferta("comunidad", ["Martes", "Miércoles"], "15");
-const superFinDeSemana70 = new Oferta(
-  "Super Fin de Semana",
-  ["Sábado", "Domingo"],
-  "70"
-);
 
-//Cuando agregue más descuentos, esta función va a tener un Switch para elegir entre los distintos caminos a elegir de acuerdo al descuento
-function descuentoComunidad(usaComunidad, diaSemana, ticket) {
-  if (usaComunidad === "S" && comunidad.dias.includes(diaSemana)) {
-    total = ticket * (1 - comunidad.porcentaje);
-    descuento = ticket * comunidad.porcentaje;
+//Empezamos a jugar
+function startGame() {
+  const userName = document.getElementById("name").value;
+
+  const dificulty = document.getElementById("dificulty").value;
+  const initialWin = document.getElementById("initialState");
+  let size = 0;
+
+  initialWin.parentNode.removeChild(initialWin);
+  //Verificamos la dificultad seleccionada para crear el tablero
+  if (dificulty == "easy") {
+    size = 5;
+  } else if (dificulty == "medium") {
+    size = 7;
   } else {
-    total = ticket;
-    descuento = 0;
+    size = 10;
   }
-}
 
-function getTodayName() {
-  let fecha = new Date();
-  let getWeekDay = fecha.getDay();
+  //Generamos el tablero
+  let gameBoard = board(size);
+  document.body.innerHTML = gameBoard;
 
-  return getWeekDay;
-}
+  let newElement = document.createElement("div");
+  newElement.classList.add("form-row");
+  newElement.classList.add("col");
+  newElement.setAttribute("id", "selectColumn");
+  document.body.appendChild(newElement);
 
-let ejecutar = "S";
+  let play = document.getElementById("selectColumn");
 
-while (ejecutar === "S") {
-  const comunidad = prompt("Usa comunidad? S/N").toUpperCase();
-  const monto = parseInt(prompt("De cuánto es tu ticket?"));
+  let newElementLabel = document.createElement("label");
+  newElementLabel.setAttribute("for", "answer");
+  newElementLabel.innerHTML = "Juega primero " + userName;
+  play.appendChild(newElementLabel);
 
-  //Obtengo el día de la semana
-  const dia = diasSemana[getTodayName()];
+  let newElementValue = document.createElement("input");
+  newElementValue.setAttribute("type", "text");
+  newElementValue.setAttribute("name", "answer");
+  newElementValue.classList.add("form-control");
+  play.appendChild(newElementValue);
 
-  descuentoComunidad(comunidad, dia, monto);
+  const prueba = document.getElementById("4-3");
+  prueba.classList.add("player1");
+  console.log(prueba.classList[1]);
 
-  //comunicando resultado
-  alert("El total a pagar es: $" + total);
-  alert("El descuento obtenido es: $" + descuento);
-
-  // actualizando ejecutar
-  ejecutar = prompt("Querés estimar otro ticket? S/N").toUpperCase();
+  //Estoy trabajando en cómo almacenar los resultados para luego mostrar un score
+  // let resultados = { Nombre: userName, movimientos: moves };
+  // games.push(resultados);
+  // let gameResults = JSON.stringify(games);
+  // sessionStorage.setItem("test1", gameResults);
 }
