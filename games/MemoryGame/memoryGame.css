@@ -1,0 +1,23 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  width: 70%;
+  margin: auto;
+}
+
+.gameBoard {
+  display: flex;
+  flex-wrap: wrap;
+  height: 320px;
+  width: 420px;
+  padding: 10px;
+  margin: auto;
+}
+
+.card {
+  margin: 2px;
+  border-radius: 5px;
+}
