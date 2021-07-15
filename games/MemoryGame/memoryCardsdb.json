@@ -1,48 +1,30 @@
-[
+[ 
     {
       "name": "coffee",
       "img": "img/coffee.jpg"
     },
-    {
-      "name": "coffee",
-      "img": "img/coffee.jpg"
-    },
+    
     {
       "name": "bread",
       "img": "img/bread.jpg"
     },
-    {
-      "name": "bread",
-      "img": "img/bread.jpg"
-    },
+    
     {
       "name": "cake",
       "img": "img/cake.jpg"
     },
-    {
-      "name": "cake",
-      "img": "img/cake.jpg"
-    },
+    
     {
       "name": "cookie",
       "img": "img/cookie.jpg"
     },
-    {
-      "name": "cookie",
-      "img": "img/cookie.jpg"
-    },
+    
     {
       "name": "donut",
       "img": "img/donut.jpg"
     },
-    {
-      "name": "donut",
-      "img": "img/donut.jpg"
-    },
-    {
-      "name": "hotChocolate",
-      "img": "img/hotChocolate.jpg"
-    },
+    
+    
     {
       "name": "hotChocolate",
       "img": "img/hotChocolate.jpg"
