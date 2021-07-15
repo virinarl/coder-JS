@@ -1,57 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
+$(document).ready(() => {
   //card options
-  const cards = [
-    {
-      name: "coffee",
-      img: "img/coffee.jpg",
-    },
-    {
-      name: "coffee",
-      img: "img/coffee.jpg",
-    },
-    {
-      name: "bread",
-      img: "img/bread.jpg",
-    },
-    {
-      name: "bread",
-      img: "img/bread.jpg",
-    },
-    {
-      name: "cake",
-      img: "img/cake.jpg",
-    },
-    {
-      name: "cake",
-      img: "img/cake.jpg",
-    },
-    {
-      name: "cookie",
-      img: "img/cookie.jpg",
-    },
-    {
-      name: "cookie",
-      img: "img/cookie.jpg",
-    },
-    {
-      name: "donut",
-      img: "img/donut.jpg",
-    },
-    {
-      name: "donut",
-      img: "img/donut.jpg",
-    },
-    {
-      name: "hotChocolate",
-      img: "img/hotChocolate.jpg",
-    },
-    {
-      name: "hotChocolate",
-      img: "img/hotChocolate.jpg",
-    },
-  ];
+  const cards = "./memoryCardsdb.json";
 
-  cards.sort(() => 0.5 - Math.random());
+  $(".container").append('<button id="btn1">Start Game!</button>');
+  $("#btn1").click(() => {
+    $.getJSON(cards, function (response, resolve) {
+      if (resolve === "success") {
+        let obtainCards = response;
+        console.log(obtainCards);
+      }
+    });
+  });
+
+  //cards.sort(() => 0.5 - Math.random());
 
   const board = document.querySelector(".gameBoard");
   const displayResults = document.querySelector("#results");
