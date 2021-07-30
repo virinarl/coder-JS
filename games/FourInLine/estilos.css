@@ -20,6 +20,18 @@
   border: 1px solid black;
 }
 
-.preview-red {
+.preview_red {
   background-color: rgba(255, 0, 0, 0.2);
+}
+
+.preview_black {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.col.red_coin {
+  background-color: red;
+}
+
+.col.black_coin {
+  background-color: black;
 }

@@ -3,6 +3,7 @@ class Connect4 {
     this.ROWS = 6;
     this.COLS = 7;
     this.selector = selector;
+    this.player = "red";
     this.createBoard();
     this.setupEvents();
   }
@@ -24,6 +25,8 @@ class Connect4 {
 
   setupEvents() {
     const $board = $(this.selector);
+    //aún necesito acceso a this como objeto
+    const that = this;
 
     function findLastEmpty(col) {
       const cells = $(`.col[data-col='${col}']`);
@@ -39,11 +42,21 @@ class Connect4 {
     $board.on("mouseenter", ".col.empty", function () {
       const col = $(this).data("col");
       const $lastEmpty = findLastEmpty(col);
-      $lastEmpty.addClass("preview-red");
+      $lastEmpty.addClass(`preview_${that.player}`);
     });
 
     $board.on("mouseleave", ".col", function () {
-      $(".col").removeClass("preview-red");
+      $(".col").removeClass(`preview_${that.player}`);
+    });
+
+    $board.on("click", ".col.empty", function () {
+      const col = $(this).data("col");
+      const $lastEmpty = findLastEmpty(col);
+      $lastEmpty.removeClass(`empty preview_${that.player}`);
+      $lastEmpty.addClass(`${that.player}_coin`);
+      //Alternar entre jugadores
+      that.player = that.player === "red" ? "black" : "red";
+      $(this).trigger("mouseenter");
     });
   }
 }
