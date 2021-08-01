@@ -51,13 +51,53 @@ class Connect4 {
 
     $board.on("click", ".col.empty", function () {
       const col = $(this).data("col");
+      const row = $(this).data("row");
       const $lastEmpty = findLastEmpty(col);
       $lastEmpty.removeClass(`empty preview_${that.player}`);
       $lastEmpty.addClass(`${that.player}_coin`);
+      const winner = that.checkWinner(row, col);
+      if (winner) {
+        //To something
+        alert(`Game over!! Player ${that.player} won!`);
+        return;
+      }
       //Alternar entre jugadores
       that.player = that.player === "red" ? "black" : "red";
       $(this).trigger("mouseenter");
     });
+
+    function checkWinner(row, col) {
+      const that = this;
+
+      function $getCell(x, y) {
+        return $(`.col[data-row='${x}'][data-col='${y}']`);
+      }
+
+      function checkDirection(direction) {
+        let total = 0;
+        let x = row + direction.x;
+        let y = col + direction.y;
+        let $cell = $getCell(x, y);
+        while (x >= 0 && x < that.ROWS && y >= 0 && y < that.COLS) {
+          //Do something
+        }
+      }
+
+      function checkWins(dirA, dirB) {
+        const total = 1 + checkDirection(dirA) + checkDirection(dirB);
+        if (total >= 4) {
+          return that.player;
+        } else {
+          return null;
+        }
+      }
+
+      function checkVertical() {
+        return checkWins({ x: -1, y: 0 }, { x: 1, y: 0 });
+      }
+
+      return checkVertical();
+    }
   }
 }
 
