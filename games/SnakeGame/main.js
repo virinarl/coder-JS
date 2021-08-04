@@ -24,6 +24,7 @@ let xVelocity = 0;
 let yVelocity = 0;
 
 let puntuation = 0;
+let hightSpeed = false;
 
 function refreshScreen() {
   moveSnake();
@@ -39,9 +40,20 @@ function refreshScreen() {
   snake();
 
   score();
-
-  if (puntuation % 10) {
-    speed = speed * 1.3;
+  if (puntuation === 3) {
+    speed = 4.8;
+  }
+  if (puntuation === 8) {
+    speed = 6.72;
+  }
+  if (puntuation === 12) {
+    speed = 10.08;
+  }
+  if (puntuation === 17) {
+    speed = speed * 17.14;
+  }
+  if (puntuation === 22) {
+    speed = 34.28;
   }
 
   setTimeout(refreshScreen, 1000 / speed);
