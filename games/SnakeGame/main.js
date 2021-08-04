@@ -40,7 +40,7 @@ function refreshScreen() {
 
   score();
 
-  if (score % 10) {
+  if (puntuation % 10) {
     speed = speed * 1.3;
   }
 
