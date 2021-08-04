@@ -23,11 +23,16 @@ let foodY = Math.floor(Math.random() * tileCount);
 let xVelocity = 0;
 let yVelocity = 0;
 
-let score = 0;
+let puntuation = 0;
 
 function refreshScreen() {
-  clear();
   moveSnake();
+  let result = isGameOver();
+  if (result) {
+    return;
+  }
+
+  clear();
 
   food();
   checkFoodCollected();
@@ -35,11 +40,49 @@ function refreshScreen() {
 
   score();
 
+  if (score % 10) {
+    speed = speed * 1.3;
+  }
+
   setTimeout(refreshScreen, 1000 / speed);
+}
+
+function isGameOver() {
+  let gameOver = false;
+
+  if (xVelocity === 0 && yVelocity === 0) {
+    return false;
+  }
+
+  if (headX < 0) {
+    gameOver = true;
+  } else if (headX === tileCount) {
+    gameOver = true;
+  } else if (headY === tileCount) {
+    gameOver = true;
+  } else if (headX < 0) {
+    gameOver = true;
+  }
+
+  for (let i = 0; i < snakeBodyParts.length; i++) {
+    let part = snakeBodyParts[i];
+    if (part.x === headX && part.y === headY) {
+      gameOver = true;
+      break;
+    }
+  }
+  if (gameOver) {
+    ctx.fillStyle = "white";
+    ctx.font = "50px Verdana";
+    ctx.fillText("Game Over!", board.width / 7, board.height / 2);
+  }
+  return gameOver;
 }
 
 function score() {
   ctx.fillStyle = "white";
+  ctx.font = "10px Verdana";
+  ctx.fillText("Score " + puntuation, board.width - 50, 15);
 }
 
 function clear() {
@@ -49,7 +92,6 @@ function clear() {
 
 function snake() {
   ctx.fillStyle = "green";
-  ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize);
 
   for (let i = 0; i < snakeBodyParts.length; i++) {
     let part = snakeBodyParts[i];
@@ -60,6 +102,9 @@ function snake() {
   if (snakeBodyParts.length > tailLength) {
     snakeBodyParts.shift();
   }
+
+  ctx.fillStyle = "orange";
+  ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize);
 }
 
 function moveSnake() {
@@ -77,6 +122,7 @@ function checkFoodCollected() {
     foodX = Math.floor(Math.random() * tileCount);
     foodY = Math.floor(Math.random() * tileCount);
     tailLength++;
+    puntuation++;
   }
 }
 
